@@ -33,7 +33,7 @@ bot({pattern: 'update', fromMe: true, dontAddCommandList: true, desc: "Updates b
             try {
                 await git.addRemote('heroku', git_url);
             } catch { console.log('heroku remote ekli'); }
-            await git.push('heroku', 'main');
+            await git.push('heroku', 'master');
 
             await message.sendMessage("_Successfully updated_")
             await message.sendMessage("_Restarting_")
