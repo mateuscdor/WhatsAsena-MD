@@ -1,9 +1,60 @@
 {
-    "name": "x-asena",
-    "description": "X-asena Multi Device whatsappbot",
-    "logo": "https://i.hizliresim.com/6Bbj7i.jpg",
-    "keywords": ["whatsapp"],
-    "repository": "https://github.com/Neeraj-x0/x-asena",
-    "website":   "https://github.com/Neeraj-x0/x-asena",
-    "success_url": "https://github.com/Neeraj-x0/x-asena",
-    "stack": "container" }
+    "name": "Alexa-MD",
+    "description": "Alexa Multi Device",
+    "logo": "https://i.imgur.com/daBdQPW.jpeg",
+    "keywords": ["whatsapp", "Alexa", "Alexa-MD"],
+    "repository": "https://github.com/5hefin/Alexa-MD",
+    "stack": "container",
+    "env": { 
+        "HANDLERS": {
+            "description": "Prefix of commands. Can be also false",
+            "required": true,
+            "value":"^[.,]"
+        },
+       "HEROKU_API_KEY": {
+            "description": "For updating bot and setting vars remotely",
+            "required": true,
+            "value":""
+        },
+        "HEROKU_APP_NAME": {
+            "description": "Exact name which you gave at the top",
+            "required": true,
+            "value":""
+        },
+        "BOT_NAME": {
+            "description": "Name of your bot",
+            "required": true,
+            "value":"Alexa"
+        },
+        "WORKTYPE": {
+            "description": "Private or public",
+            "required": true,
+            "value":"private"
+        },
+        "SUDO": {
+            "description": "These numbers can control your bot. seperate with commas",
+            "required": false,
+            "value":"919567489404"
+        },
+        "ALIVE": {
+            "description": "Alive message",
+            "required": false,
+            "value":"I'm Alive"
+        },
+       "SESSION": {
+            "description": "Your MD session",
+            "required": true
+             
+        }
+    },
+    "addons": [{
+      "plan": "heroku-postgresql"
+    }],
+    "buildpacks": [{
+      "url": "heroku-community/apt"
+      },
+      {
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+      }]
+  }
+
