@@ -7,7 +7,31 @@ const Heroku = require('heroku-client');
 const { PassThrough } = require('stream');
 const heroku = new Heroku({ token: Config.HEROKU.API_KEY })
 
-bot({pattern: 'update', fromMe: true, dontAddCommandList: true, desc: "Updates bot"}, (async (message, match) => {
+bot({
+    pattern: 'update',
+    fromMe: true,
+    desc: "Updates bot",
+    use: 'owner'
+}, (async (message, match) => {
+     await git.fetch();
+    var commits = await git.log(['master' + '..origin/' + 'master']);
+    var mss = '';
+    if (commits.total === 0) {
+        mss = "*Bot up to date!*"
+        return await message.sendMessage(mss);
+    } else {
+        var changelog = "_Pending updates:_\n\n";
+        for (var i in commits.all){
+        changelog += `${(parseInt(i)+1)}• *${commits.all[i].message}*\n`
+    }
+        mss = changelog;
+        var buttons = [{buttonId: handler+'updt', buttonText: {displayText: 'START UPDATE'}, type: 1}]
+    }
+
+    return await message.sendMessage(mss)   
+}));
+
+bot({pattern: 'update now', fromMe: true, dontAddCommandList: true, desc: "Updates bot"}, (async (message, match) => {
     await git.fetch();
     var commits = await git.log(['master' + '..origin/' + 'master']);
     if (commits.total === 0) {
