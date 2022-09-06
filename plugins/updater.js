@@ -9,21 +9,21 @@ const heroku = new Heroku({ token: Config.HEROKU.API_KEY })
 
 bot({pattern: 'update', fromMe: true, dontAddCommandList: true, desc: "Updates bot"}, (async (message, match) => {
     await git.fetch();
-    var commits = await git.log(['main' + '..origin/' + 'main']);
+    var commits = await git.log(['master' + '..origin/' + 'master']);
     if (commits.total === 0) {
-        return await message.client.sendMessage(message.jid, { text:"_Bot up to date_"})
+        return await message.sendMessage("_Bot up to date_")
 
     } else {
-        await message.sendMessage(message.jid, { text:"_Started update.._"})
+        await message.sendMessage("_Started update.._")
 
             try {
                 var app = await heroku.get('/apps/' + Config.HEROKU.APP_NAME)
             } catch {
-                await message.sendMessage(message.jid, { text:"Heroku information wrong!"})
+                await message.sendMessage("Heroku information wrong!")
 
                 await new Promise(r => setTimeout(r, 1000));
             }
-            git.fetch('upstream', 'main');
+            git.fetch('upstream', 'master');
             git.reset('hard', ['FETCH_HEAD']);
 
             var git_url = app.git_url.replace(
@@ -35,7 +35,7 @@ bot({pattern: 'update', fromMe: true, dontAddCommandList: true, desc: "Updates b
             } catch { console.log('heroku remote ekli'); }
             await git.push('heroku', 'main');
 
-            await message.sendMessage(message.jid, { text:"_Successfully updated_"})
-           await message.sendMessage(message.jid, { text:"_Restarting_"})
+            await message.sendMessage("_Successfully updated_")
+            await message.sendMessage("_Restarting_")
             }
 }));
