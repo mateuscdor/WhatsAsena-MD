@@ -2,7 +2,7 @@
   "name": "alexa-md",
   "version": "1.3.6",
   "description": "Alexa Multi Device.",
-  "main": "index.js",
+  "main": "./WhatsAsena-MD/index.js",
   "scripts": {
     "start": "supervisor -s index.js"
   },
